@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Image  } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
+ 
 export default function Cursos({ route }) {
     const { curso } = route.params;
     const [cursoAberto, setCursoAberto] = useState(null);
-
+ 
     const toggleCurso = (curso) => {
         setCursoAberto(cursoAberto === curso ? null : curso);
     };
-
+ 
     const cursos = [
         "Livre",
         "Técnico",
@@ -18,15 +18,15 @@ export default function Cursos({ route }) {
         "Ensino Médio Técnico",
         "Pós-Graduação"
     ];
-
+ 
     return (
-
+ 
         <View style={styles.container}>
             <ScrollView>
-
-          
+ 
+         
             <Image
-                source={require('../estagio/assets/cursos.jpg')}
+                source={require('../assets/cursos.jpg')}
                 style={styles.image}
             />
             <Text style={styles.titulo}>
@@ -36,7 +36,7 @@ export default function Cursos({ route }) {
                 "O primeiro passo pro seu sucesso começa aqui!"
             </Text>
             <View style={styles.linha} />
-
+ 
             {cursos.map((curso, index) => (
                 <View key={index} style={styles.cursoContainer}>
                     <TouchableOpacity
@@ -49,11 +49,11 @@ export default function Cursos({ route }) {
                             {cursoAberto === curso ? '▼' : '▶'}
                         </Text>
                     </TouchableOpacity>
-
+ 
                     {cursoAberto === curso && (
                         <View style={styles.content}>
                             <Image source={route.params.curso.imagem} style={styles.img} />
-                          
+                         
                                 <Text style={styles.text}>{route.params.curso.nome}</Text>
                                 <Text style={styles.descricaoCurso}>
                                     Este curso oferece uma formação completa na área, com foco em prática e teoria. Ideal para quem quer crescer profissionalmente!
@@ -62,13 +62,13 @@ export default function Cursos({ route }) {
                     )}
                 </View>
             ))}
-
+ 
             <StatusBar style="dark" />
             </ScrollView>
         </View>
     );
 }
-
+ 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -158,3 +158,4 @@ const styles = StyleSheet.create({
         lineHeight: 18,
     },
 });
+ 
