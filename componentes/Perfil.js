@@ -6,11 +6,13 @@ import { funEmoji } from '@dicebear/collection';
 import { auth } from './Firebase';
 import { signOut } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from './Tema';
 
 export default function Perfil() {
   const [email, setEmail] = useState('');
   const [avatarSvg, setAvatarSvg] = useState('');
   const navigation = useNavigation();
+  const { tema, TemaCor } = useTheme();
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -39,11 +41,16 @@ export default function Perfil() {
       });
   };
 
+  const estiloAtual = tema === 'light' ? styles.light : styles.dark
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, estiloAtual.container]}>
+      <Text onPress={TemaCor}>{tema === 'light' ? '🌞' : '🌙'}</Text>
       {avatarSvg ? <SvgXml xml={avatarSvg} style={styles.profileImage} /> : null}
-      <Text style={styles.label}>E-mail do usuário:</Text>
-      <Text style={styles.email}>{email}</Text>
+      <Text style={[styles.label, estiloAtual.texto]}>E-mail do usuário:</Text> 
+      <Text style={[styles.email, estiloAtual.texto]}>{email}</Text>
+
+
 
       <View style={styles.buttonContainer}>
         <Button title="Sair da conta" onPress={handleLogout} color="#d9534f" />
@@ -58,7 +65,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#fff',
   },
   profileImage: {
     width: 150,
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#ccc',
   },
-  label: {
+  label: { 
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
@@ -82,5 +88,25 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '60%',
     marginTop: 20,
+  },
+  emojiText: {
+    fontSize: 24,
+    marginTop: 20,
+  },
+  light: {
+    container: {
+      backgroundColor: '#fff',
+    },
+    texto: {
+      color: '#000',
+    },
+  },
+  dark: {
+    container: {
+      backgroundColor: '#121212',
+    },
+    texto: {
+      color: '#fff',
+    },
   },
 });

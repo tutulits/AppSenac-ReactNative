@@ -1,10 +1,15 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, } from '@react-navigation/native';
 import Rotas from './componentes/Rotas';
+import { Tema } from './componentes/Tema';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Rotas />
-    </NavigationContainer>
+
+      <Tema>
+        <NavigationContainer>
+        <Rotas />
+        </NavigationContainer>
+      </Tema>
+
   );
 }
