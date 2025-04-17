@@ -5,14 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Cursos from './Cursos';
 import { useTheme } from './Tema';
 import { StatusBar } from 'expo-status-bar';
-import Carousel from 'react-native-snap-carousel';
 
-const { width } = Dimensions.get('window');
-
-const carrosel = [
-  {id: 1, imagem: require('../assets/m.png')},
-  {id: 2, imagem: require('../assets/m.png')},
-]
 
 const cursos = [
   { id: '1', nome: 'Tecnologia da Informação', imagem: require('../assets/ti.png'), cor: '#2F4F4F' },
@@ -79,19 +72,8 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.curso}>Cursos por área</Text>
-      <Carousel 
-      data={carrosel}
-      renderItem={({ item }) => (
-        <View style={{ borderRadius: 10, overflow: 'hidden' }}>
-        <Image source={item.imagem} style={{ width: width * 0.9, height: 180, borderRadius: 10 }} />
-      </View>
-      )}
-      sliderWidth={width}
-    itemWidth={width * 0.9}
-    loop={true}
-    autoplay={true}
-    autoplayInterval={4000}
-      /> 
+
+
       <FlatList
         data={cursos}
         keyExtractor={item => item.id}

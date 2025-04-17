@@ -9,6 +9,8 @@ import Cursos from './Cursos';
 import Home from './Home';
 import Dicas from './Dicas';
 import Perfil from './Perfil';
+import EditarPerfil from './EditarPerfil';
+import RedefinirSenha from './RedefinirSenha';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -59,6 +61,8 @@ export default function Rotas() {
       <Stack.Screen name="CriarLogin" component={CriarLogin} options={{ headerShown: false }} />
       <Stack.Screen name="Cursos" component={Cursos} options={{ headerShown: false }} />
       <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
+      <Stack.Screen name="EditarPerfil" component={EditarPerfil} options={{ headerShown: false }} />
+      <Stack.Screen name="RedefinirSenha" component={RedefinirSenha} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

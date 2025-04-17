@@ -6,9 +6,10 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from './Firebase';
 import Criar from './CriarLogin';
 
@@ -26,8 +27,23 @@ export default function Login({ navigation }) {
     }
   };
 
-  const criarlogin = async () => {
-      navigation.replace('CriarLogin');
+  const criarlogin = () => {
+    navigation.replace('CriarLogin');
+  };
+
+  const esqueciSenha = async () => {
+    if (!email) {
+      Alert.alert('Erro', 'Digite seu e-mail para redefinir a senha.');
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      Alert.alert('Sucesso', 'E-mail de redefinição de senha enviado!');
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Erro', 'Não foi possível enviar o e-mail. Verifique se o e-mail está correto.');
+    }
   };
 
   return (
@@ -63,14 +79,21 @@ export default function Login({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
+  style={estilos.link}
+  onPress={() => navigation.navigate('RedefinirSenha')}
+  activeOpacity={0.7}
+>
+  <Text style={estilos.linkTexto}>Esqueci minha senha</Text>
+</TouchableOpacity>
+
+
+      <TouchableOpacity
         style={estilos.botao2}
         onPress={criarlogin}
         activeOpacity={0.7}
       >
         <Text style={estilos.textobotao2}>Criar login</Text>
       </TouchableOpacity>
-
-
     </SafeAreaView>
   );
 }
@@ -126,7 +149,7 @@ const estilos = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   botao2: {
     width: 200,
@@ -137,7 +160,6 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#045494',
-
   },
   textobotao: {
     fontSize: 20,
@@ -149,12 +171,19 @@ const estilos = StyleSheet.create({
     fontSize: 20,
     color: '#045494',
     fontWeight: 'bold',
-    
   },
   error: {
-
     color: 'red',
     fontSize: 14,
     marginTop: 10,
+  },
+  link: {
+    marginBottom: 15,
+  },
+  linkTexto: {
+    color: '#045494',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   },
 });

@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from './Firebase';
 
 export default function CriarConta({ navigation }) {
@@ -19,14 +19,17 @@ export default function CriarConta({ navigation }) {
     const [error, setError] = useState('');
     const [sucesso, setSucesso] = useState('');
 
+
     const criarConta = async () => {
         if (senha !== confirmarSenha) {
             setError('As senhas não coincidem.');
             return;
         }
-
+    
         try {
             await createUserWithEmailAndPassword(auth, email, senha);
+            await updateProfile(auth.currentUser, { displayName: nome });
+    
             setSucesso('Conta criada com sucesso!');
             setError('');
             navigation.replace('Login');

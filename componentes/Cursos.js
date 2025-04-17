@@ -21,6 +21,14 @@ export default function Cursos({ route }) {
         "Pós-Graduação"
     ];
 
+    const detalhesCurso = {
+        "Livre": "Cursos rápidos e introdutórios, ideais para quem quer aprender algo novo em pouco tempo.",
+        "Técnico": "Formações mais completas, voltadas para o mercado de trabalho. Perfeitos para capacitação profissional.",
+        "Graduação": "Cursos superiores com formação acadêmica sólida, duração média de 3 a 5 anos.",
+        "Ensino Médio Técnico": "Integra o ensino médio com formação técnica, preparando o aluno para o mercado e vestibulares.",
+        "Pós-Graduação": "Especializações para quem já tem graduação e busca se aprofundar em determinada área."
+    };
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -144,9 +152,7 @@ export default function Cursos({ route }) {
                             <View style={styles.content}>
                                 <Image source={route.params.curso.imagem} style={styles.img} />
                                 <Text style={styles.text}>{route.params.curso.nome}</Text>
-                                <Text style={styles.descricaoCurso}>
-                                    Este curso oferece uma formação completa na área, com foco em prática e teoria. Ideal para quem quer crescer profissionalmente!
-                                </Text>
+                                <Text style={styles.descricaoCurso}>{detalhesCurso[curso]}</Text>
                             </View>
                         )}
                     </View>
